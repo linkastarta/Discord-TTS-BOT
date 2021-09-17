@@ -11,7 +11,6 @@ TOKEN = "xxxxxxxxxxxxxxx"
 
 
 def speak(text):
-    print(text)
     tts = gTTS(text=text, lang="en", slow=False)
     filename = "voice.mp3"
     tts.save(filename)
@@ -19,7 +18,6 @@ def speak(text):
 
 
 def speakchoi(text, lang):
-    print(text)
     tts = gTTS(text=text, lang=lang)
     filename = "voice.mp3"
     tts.save(filename)
@@ -40,14 +38,11 @@ async def p(ctx):
     last = str(ctx.message.author) + ": " + str(ctx.message.content[5:])
     print(last)
     if discord.utils.get(client.voice_clients, guild=ctx.guild) == None:
-        print(ctx.message.author)
-        print(ctx.message.content)
         channel = client.get_channel(channelId)
         voice = await channel.connect()
         source = FFmpegPCMAudio(executable="C:\FFmpeg\\bin\\ffmpeg.exe", source=speak(ctx.message.content[5:]))
         player = voice.play(source)
     else:
-        print(ctx.message.author)
         voice_client = discord.utils.get(client.voice_clients, guild=ctx.guild)
         source = FFmpegPCMAudio(executable="C:\FFmpeg\\bin\\ffmpeg.exe", source=speak(ctx.message.content[5:]))
         voice_client.play(source)
@@ -63,7 +58,7 @@ async def c(ctx):
         channel = client.get_channel(channelId)
         voice = await channel.connect()
         source = FFmpegPCMAudio(executable="C:\FFmpeg\\bin\\ffmpeg.exe", source=speakchoi(ctx.message.content[7:],ctx.message.content[5:7]))
-        player = voice.play(source)
+        voice.play(source)
     else:
         voice_client = discord.utils.get(client.voice_clients, guild=ctx.guild)
         source = FFmpegPCMAudio(executable="C:\FFmpeg\\bin\\ffmpeg.exe", source=speakchoi(ctx.message.content[7:],ctx.message.content[5:7]))
